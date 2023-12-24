@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { getFullPath, getPage } from "../.server/contentfulLegacy"
 import { useLoaderData } from "@remix-run/react"
-
+import { redirect } from "@remix-run/node"
 export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }]
 }
@@ -18,6 +18,9 @@ export async function loader({ params }: LoaderFunctionArgs) {
   const pathname = "/" + params["*"]!
 
   const { data } = await getPage({ pathname })
+
+  if (data.redirect) return redirect(data.to)
+
   const page = data.pageCollection.items[0]
 
   if (!page) throw pageNotFound()
