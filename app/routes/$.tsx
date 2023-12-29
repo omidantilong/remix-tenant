@@ -2,6 +2,10 @@ import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { getFullPath, getPage } from "../.server/contentfulLegacy"
 import { useLoaderData } from "@remix-run/react"
 import { redirect } from "@remix-run/node"
+
+import Section from "../components/Section/Section"
+import Text from "../components/Text/Text"
+
 export const meta: MetaFunction = () => {
   return [{ title: "New Remix App" }, { name: "description", content: "Welcome to Remix!" }]
 }
@@ -11,7 +15,18 @@ export default function Page() {
 
   console.log(page)
 
-  return <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>{page.title}</div>
+  const modules: ContentComponent[] = page.modulesCollection.items
+
+  return (
+    <div>
+      <h1>{page.title}</h1>
+      {modules &&
+        modules.map((module) => {
+          if (module.type === "Section") return <Section data={module} />
+          if (module.type === "Text") return <Text data={module} />
+        })}
+    </div>
+  )
 }
 
 export async function loader({ params }: LoaderFunctionArgs) {
