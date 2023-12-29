@@ -68,6 +68,22 @@ export function getSlugFromPath(pathname: string) {
   return pathname.split("/").at(-1)
 }
 
+export async function getAsset(id: string) {
+  const query = `
+    query AssetQuery { 
+      asset(id:"${id}") {
+        title
+        contentType
+        width
+        height
+        sys {
+          id
+        }
+      }
+    }`
+  return await fetchData({ query })
+}
+
 export async function getRedirect(pathname: string) {
   const query = `
     query RedirectQuery {
