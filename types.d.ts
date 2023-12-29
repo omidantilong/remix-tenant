@@ -8,12 +8,17 @@ declare interface ContentfulLegacyPage {
   url: string
   title: string
   parentPage: ContentfulLegacyPage
+  modulesCollection: {
+    items: ContentComponent[]
+  }
 }
 
 declare interface Section {
   type: "Section"
   title: string
-  contentCollection: any[] //eslint-disable-line
+  contentCollection: {
+    items: ContentComponent[]
+  }
 }
 
 declare interface EditorialCard {
@@ -22,4 +27,10 @@ declare interface EditorialCard {
   cardLabel: string
 }
 
-declare type ContentComponent = Section | EditorialCard
+declare interface Text {
+  type: "Text"
+  title: string
+  text: string
+}
+
+declare type ContentComponent = Section | EditorialCard | Text
