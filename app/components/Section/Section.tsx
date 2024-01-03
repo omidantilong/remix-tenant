@@ -14,7 +14,7 @@ export default function Section(props: Props) {
       <h2>{title}</h2>
       {contentCollection.items.length &&
         contentCollection.items.map((content: ContentComponent) => {
-          //console.log(content)
+          console.log(content.type)
           if (content.type === "EditorialCard") return <h3>{content.cardHeading}</h3>
           if (content.type === "Text") return <Text data={content} />
         })}

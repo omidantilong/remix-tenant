@@ -1,7 +1,7 @@
 import type { LoaderFunctionArgs, MetaFunction } from "@remix-run/node"
 import { getFullPath, getPage } from "../.server/contentfulLegacy"
 import { useLoaderData } from "@remix-run/react"
-import { redirect } from "@remix-run/node"
+//import { redirect } from "@remix-run/node"
 
 import Section from "../components/Section/Section"
 import Text from "../components/Text/Text"
@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function Page() {
   const { page } = useLoaderData() as { page: ContentfulLegacyPage }
 
-  console.log(page)
+  //console.log(page)
 
   const modules: ContentComponent[] = page.modulesCollection.items
 
@@ -22,6 +22,7 @@ export default function Page() {
       <h1>{page.title}</h1>
       {modules &&
         modules.map((module) => {
+          //console.log(module)
           if (module.type === "Section") return <Section data={module} />
           if (module.type === "Text") return <Text data={module} />
         })}
@@ -34,8 +35,8 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
   const { data } = await getPage({ pathname })
 
-  if (data.redirect) return redirect(data.to)
-
+  //if (data.redirect) return redirect(data.to)
+  //console.log(data)
   const page = data.pageCollection.items[0]
 
   if (!page) throw pageNotFound()

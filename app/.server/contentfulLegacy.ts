@@ -2,9 +2,9 @@
 // https://github.com/graphql/graphql-spec/issues/929
 
 export async function getPage({ pathname }: { pathname: string }) {
-  const redirect = await getRedirect(pathname)
+  // const redirect = await getRedirect(pathname)
 
-  if (redirect) return { data: { redirect: true, ...redirect } }
+  // if (redirect) return { data: { redirect: true, ...redirect } }
 
   const slug = getSlugFromPath(pathname)
 
